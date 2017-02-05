@@ -22,7 +22,7 @@ uint8_t led9 = 9;
 uint8_t button = 10;
 
 frame *(*generateFrameSequence[modes])();
-frame *head, *currentFrame;
+frame *blank, *currentFrame, *head = NULL;
 uint32_t lastChange = 0;
 uint8_t currentIndex = 0;
 
@@ -39,8 +39,9 @@ void setup() {
   pinMode(led0, OUTPUT);
   pinMode(button, INPUT_PULLUP);
   
-  currentFrame = head = generateBlankFrame();
+  currentFrame = blank = generateBlankFrame();
   showFrame(currentFrame);
+  lastChange = millis();
   
   generateFrameSequence[0] = &generateFullFrame;
   generateFrameSequence[1] = &generateWaterfallFrames;
@@ -57,8 +58,10 @@ void loop() {
   if (digitalRead(button) == LOW) {
     freeFrames(head);
     ++currentIndex %= modes;
-    currentFrame = head = generateFrameSequence[currentIndex]();
-    showFrame(head);
+    currentFrame = blank;
+    head = generateFrameSequence[currentIndex]();
+    currentFrame->next = head;
+    showFrame(currentFrame);
     lastChange = millis();
   }
 
