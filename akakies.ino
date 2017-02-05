@@ -3,8 +3,9 @@
 #include "frame.h"
 #include "constant.h"
 #include "waterfall.h"
+#include "party.h"
 
-#define modes 2
+#define modes 3
 
 void showFrame(frame *nextFrame);
 
@@ -43,6 +44,7 @@ void setup() {
   
   generateFrameSequence[0] = &generateFullFrame;
   generateFrameSequence[1] = &generateWaterfallFrames;
+  generateFrameSequence[2] = &generatePartyFrames;
 }
 
 void loop() {
