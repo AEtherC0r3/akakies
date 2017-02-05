@@ -25,7 +25,7 @@ uint8_t button = 10;
 frame *(*generateFrameSequence[modes])();
 frame *blank, *currentFrame, *head = NULL;
 uint32_t lastChange = 0;
-uint8_t currentIndex = 0;
+uint8_t currentIndex = -1;
 
 void setup() {
   pinMode(led0, OUTPUT);
@@ -65,14 +65,15 @@ void loop() {
     currentFrame->next = head;
     showFrame(currentFrame);
     lastChange = millis();
+    delay(750);
   }
 
 }
 
 void showFrame(frame *nextFrame) {
-  digitalWrite(led1, nextFrame->led0 ? HIGH : LOW);
-  digitalWrite(led2, nextFrame->led1 ? HIGH : LOW);
-  digitalWrite(led3, nextFrame->led2 ? HIGH : LOW);
+  digitalWrite(led0, nextFrame->led0 ? HIGH : LOW);
+  digitalWrite(led1, nextFrame->led1 ? HIGH : LOW);
+  digitalWrite(led2, nextFrame->led2 ? HIGH : LOW);
   digitalWrite(led3, nextFrame->led3 ? HIGH : LOW);
   digitalWrite(led4, nextFrame->led4 ? HIGH : LOW);
   digitalWrite(led5, nextFrame->led5 ? HIGH : LOW);
