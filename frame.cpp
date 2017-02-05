@@ -15,7 +15,7 @@ uint8_t numberOfFrames(frame *item)
 }
 
 void freeFrames(frame *head) {
-  if (head->id == 0) {
+  if (head != NULL && head->id == 0) {
     uint8_t i, N;
     frame *tmp;
     N = numberOfFrames(head);
