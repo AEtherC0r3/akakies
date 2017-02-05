@@ -2,6 +2,9 @@
 
 #include "frame.h"
 #include "constant.h"
+#include "waterfall.h"
+
+#define modes 2
 
 void showFrame(frame *nextFrame);
 
@@ -17,7 +20,7 @@ uint8_t led8 = 8;
 uint8_t led9 = 9;
 uint8_t button = 10;
 
-frame *(*generateFrameSequence[1])();
+frame *(*generateFrameSequence[modes])();
 frame *head, *currentFrame;
 uint32_t lastChange = 0;
 uint8_t currentIndex = 0;
@@ -39,6 +42,7 @@ void setup() {
   showFrame(currentFrame);
   
   generateFrameSequence[0] = &generateFullFrame;
+  generateFrameSequence[1] = &generateWaterfallFrames;
 }
 
 void loop() {
@@ -50,7 +54,7 @@ void loop() {
   
   if (digitalRead(button) == LOW) {
     freeFrames(head);
-    ++currentIndex %= 1;
+    ++currentIndex %= modes;
     currentFrame = head = generateFrameSequence[currentIndex]();
     showFrame(head);
     lastChange = millis();
