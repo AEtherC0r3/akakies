@@ -9,7 +9,7 @@ frame *generateRandomFrames()
   
   frame *head, *tail;
   
-  for (uint8_t i=0; i<60; i++) {
+  for (uint8_t i=0; i<30; i++) {
     frame *newFrame = (frame *)malloc(sizeof(frame));
     uint16_t rand = random(0, 1025);
     
@@ -28,7 +28,7 @@ frame *generateRandomFrames()
     
     if (i == 0) {
       head = newFrame;
-    } else if (i == 59) {
+    } else if (i == 29) {
       newFrame->next = head;
     }
     if (i != 0) {
