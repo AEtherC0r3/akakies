@@ -11,7 +11,7 @@ frame *generateRandomFrames()
   
   for (uint8_t i=0; i<30; i++) {
     frame *newFrame = (frame *)malloc(sizeof(frame));
-    uint16_t rand = random(0, 1025);
+    uint16_t rand = random(0, 1024);
     
     newFrame->id = i;
     newFrame->led0 = rand & 1;
