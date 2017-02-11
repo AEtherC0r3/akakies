@@ -6,7 +6,7 @@
 #include "party.h"
 #include "random.h"
 
-#define modes 4
+#define modes 5
 
 void showFrame(frame *nextFrame);
 
@@ -25,7 +25,7 @@ uint8_t button = 10;
 frame *(*generateFrameSequence[modes])();
 frame *blank, *currentFrame, *head = NULL;
 uint32_t lastChange = 0;
-uint8_t currentIndex = -1;
+uint8_t currentIndex = 0;
 
 void setup() {
   pinMode(led0, OUTPUT);
@@ -44,10 +44,11 @@ void setup() {
   showFrame(currentFrame);
   lastChange = millis();
   
-  generateFrameSequence[0] = &generateFullFrame;
-  generateFrameSequence[1] = &generateWaterfallFrames;
-  generateFrameSequence[2] = &generatePartyFrames;
-  generateFrameSequence[3] = &generateRandomFrames;
+  generateFrameSequence[0] = &generateBlankFrame;
+  generateFrameSequence[1] = &generateFullFrame;
+  generateFrameSequence[2] = &generateWaterfallFrames;
+  generateFrameSequence[3] = &generatePartyFrames;
+  generateFrameSequence[4] = &generateRandomFrames;
 }
 
 void loop() {
